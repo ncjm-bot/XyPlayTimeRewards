@@ -1,0 +1,60 @@
+name: Discord Release Announcement
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send release embed to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          RELEASE_NAME: ${{ github.event.release.name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_BODY: ${{ github.event.release.body }}
+          RELEASE_URL: ${{ github.event.release.html_url }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          DESCRIPTION=$(printf "%s" "$RELEASE_BODY" | head -c 3000 | sed ':a;N;$!ba;s/\n/\\n/g')
+
+          cat > payload.json <<EOF
+          {
+            "username": "Xy Updates",
+            "embeds": [
+              {
+                "title": "${RELEASE_NAME}",
+                "url": "${RELEASE_URL}",
+                "description": "A new update is now live for **${REPO_NAME}**.",
+                "color": 5793266,
+                "fields": [
+                  {
+                    "name": "Plugin",
+                    "value": "${REPO_NAME}",
+                    "inline": true
+                  },
+                  {
+                    "name": "Version",
+                    "value": "${RELEASE_TAG}",
+                    "inline": true
+                  },
+                  {
+                    "name": "Changelog",
+                    "value": "${DESCRIPTION}"
+                  }
+                ],
+                "footer": {
+                  "text": "Xy Development • Minecraft Plugin Updates"
+                },
+                "timestamp": "${{ github.event.release.published_at }}"
+              }
+            ]
+          }
+          EOF
+
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d @payload.json \
+               "$DISCORD_WEBHOOK_URL"
