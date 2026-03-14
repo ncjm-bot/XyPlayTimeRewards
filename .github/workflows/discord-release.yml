@@ -19,60 +19,78 @@ jobs:
           REPO_NAME: ${{ github.event.repository.name }}
           RELEASE_PUBLISHED_AT: ${{ github.event.release.published_at }}
         run: |
-          SAFE_CHANGELOG=$(printf "%s" "$RELEASE_BODY" | tr '\n' ' ' | sed 's/"/\\"/g' | cut -c1-900)
+          python <<'PY'
+          import json
+          import os
+          import urllib.request
 
-          if [ -z "$SAFE_CHANGELOG" ]; then
-            SAFE_CHANGELOG="No changelog provided."
-          fi
+          webhook_url = os.environ["DISCORD_WEBHOOK_URL"]
+          release_name = os.environ["RELEASE_NAME"]
+          release_tag = os.environ["RELEASE_TAG"]
+          release_body = os.environ.get("RELEASE_BODY", "").strip()
+          release_url = os.environ["RELEASE_URL"]
+          repo_name = os.environ["REPO_NAME"]
+          published_at = os.environ["RELEASE_PUBLISHED_AT"]
 
-          cat > payload.json <<EOF
-          {
-            "username": "Xy Updates",
-            "avatar_url": "https://i.imgur.com/oMMV6cO.png",
-            "embeds": [
-              {
-                "title": "${RELEASE_NAME}",
-                "url": "${RELEASE_URL}",
-                "description": "A new plugin update has been released for **${REPO_NAME}**.",
-                "color": 16753920,
-                "thumbnail": {
-                  "url": "https://i.imgur.com/oMMV6cO.png"
-                },
-                "fields": [
+          safe_changelog = release_body if release_body else "No changelog provided."
+          safe_changelog = safe_changelog[:1000]
+
+          payload = {
+              "username": "Xy Updates",
+              "avatar_url": "https://i.imgur.com/oMMV6cO.png",
+              "embeds": [
                   {
-                    "name": "Plugin",
-                    "value": "**${REPO_NAME}**",
-                    "inline": true
-                  },
-                  {
-                    "name": "Version",
-                    "value": "**${RELEASE_TAG}**",
-                    "inline": true
-                  },
-                  {
-                    "name": "Changelog",
-                    "value": "${SAFE_CHANGELOG}",
-                    "inline": false
+                      "title": release_name,
+                      "url": release_url,
+                      "description": f"A new plugin update has been released for **{repo_name}**.",
+                      "color": 16753920,
+                      "thumbnail": {
+                          "url": "https://i.imgur.com/oMMV6cO.png"
+                      },
+                      "fields": [
+                          {
+                              "name": "Plugin",
+                              "value": f"**{repo_name}**",
+                              "inline": True
+                          },
+                          {
+                              "name": "Version",
+                              "value": f"**{release_tag}**",
+                              "inline": True
+                          },
+                          {
+                              "name": "Changelog",
+                              "value": safe_changelog,
+                              "inline": False
+                          }
+                      ],
+                      "footer": {
+                          "text": "Xy Development • Minecraft Plugin Updates"
+                      },
+                      "timestamp": published_at
                   }
-                ],
-                "footer": {
-                  "text": "Xy Development • Minecraft Plugin Updates"
-                },
-                "timestamp": "${RELEASE_PUBLISHED_AT}"
-              }
-            ]
+              ]
           }
-          EOF
 
-          echo "Payload preview:"
-          cat payload.json
+          data = json.dumps(payload).encode("utf-8")
+          req = urllib.request.Request(
+              webhook_url,
+              data=data,
+              headers={"Content-Type": "application/json"},
+              method="POST"
+          )
 
-          HTTP_CODE=$(curl --fail-with-body -sS -o response.txt -w "%{http_code}" \
-            -H "Content-Type: application/json" \
-            -X POST \
-            -d @payload.json \
-            "$DISCORD_WEBHOOK_URL")
+          print("Payload preview:")
+          print(json.dumps(payload, indent=2))
 
-          echo "HTTP status: $HTTP_CODE"
-          echo "Discord response:"
-          cat response.txt
+          try:
+              with urllib.request.urlopen(req) as response:
+                  print("HTTP status:", response.status)
+                  body = response.read().decode("utf-8", errors="ignore")
+                  print("Response body:", body if body else "<empty>")
+          except urllib.error.HTTPError as e:
+              print("HTTP status:", e.code)
+              error_body = e.read().decode("utf-8", errors="ignore")
+              print("Response body:", error_body if error_body else "<empty>")
+              raise
+          PY
