@@ -28,7 +28,7 @@ jobs:
               {
                 "title": "${RELEASE_NAME}",
                 "url": "${RELEASE_URL}",
-                "description": "A new update is now available for **${REPO_NAME}**.",
+                "description": "A new plugin update has been released for **${REPO_NAME}**."
                 "color": 16753920,
                 "thumbnail": {
                   "url": "https://i.imgur.com/oMMV6cO.png"
@@ -36,12 +36,13 @@ jobs:
                 "fields": [
                   {
                     "name": "Plugin",
-                    "value": "${REPO_NAME}",
+                    "value": "**${REPO_NAME}**",
                     "inline": true
                   },
+                
                   {
                     "name": "Version",
-                    "value": "${RELEASE_TAG}",
+                    "value": "**${RELEASE_TAG}**",
                     "inline": true
                   },
                   {
