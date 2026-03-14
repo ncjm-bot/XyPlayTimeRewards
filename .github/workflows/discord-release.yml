@@ -59,6 +59,11 @@ jobs:
                               "inline": True
                           },
                           {
+                              "name": "Download",
+                              "value": f"https://github.com/{repo_name}/releases/tag/{release_tag}",
+                              "inline": False
+                          },
+                          {
                               "name": "Changelog",
                               "value": safe_changelog,
                               "inline": False
