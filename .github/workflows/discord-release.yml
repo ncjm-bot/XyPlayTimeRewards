@@ -22,18 +22,18 @@ jobs:
           python <<'PY'
           import json
           import os
-          import urllib.request
 
-          webhook_url = os.environ["DISCORD_WEBHOOK_URL"]
-          release_name = os.environ["RELEASE_NAME"]
-          release_tag = os.environ["RELEASE_TAG"]
+          release_name = os.environ.get("RELEASE_NAME", "").strip()
+          release_tag = os.environ.get("RELEASE_TAG", "").strip()
           release_body = os.environ.get("RELEASE_BODY", "").strip()
-          release_url = os.environ["RELEASE_URL"]
-          repo_name = os.environ["REPO_NAME"]
-          published_at = os.environ["RELEASE_PUBLISHED_AT"]
+          release_url = os.environ.get("RELEASE_URL", "").strip()
+          repo_name = os.environ.get("REPO_NAME", "").strip()
+          published_at = os.environ.get("RELEASE_PUBLISHED_AT", "").strip()
 
-          safe_changelog = release_body if release_body else "No changelog provided."
-          safe_changelog = safe_changelog[:1000]
+          if not release_body:
+              release_body = "No changelog provided."
+
+          safe_changelog = release_body[:1000]
 
           payload = {
               "username": "Xy Updates",
@@ -72,25 +72,21 @@ jobs:
               ]
           }
 
-          data = json.dumps(payload).encode("utf-8")
-          req = urllib.request.Request(
-              webhook_url,
-              data=data,
-              headers={"Content-Type": "application/json"},
-              method="POST"
-          )
+          with open("payload.json", "w", encoding="utf-8") as f:
+              json.dump(payload, f, ensure_ascii=False)
 
           print("Payload preview:")
-          print(json.dumps(payload, indent=2))
-
-          try:
-              with urllib.request.urlopen(req) as response:
-                  print("HTTP status:", response.status)
-                  body = response.read().decode("utf-8", errors="ignore")
-                  print("Response body:", body if body else "<empty>")
-          except urllib.error.HTTPError as e:
-              print("HTTP status:", e.code)
-              error_body = e.read().decode("utf-8", errors="ignore")
-              print("Response body:", error_body if error_body else "<empty>")
-              raise
+          print(json.dumps(payload, indent=2, ensure_ascii=False))
           PY
+
+          echo "Sending webhook to Discord..."
+          HTTP_CODE=$(curl --fail-with-body -sS -o response.txt -w "%{http_code}" \
+            -H "Content-Type: application/json" \
+            -H "User-Agent: GitHubActions-DiscordWebhook/1.0" \
+            -X POST \
+            -d @payload.json \
+            "$DISCORD_WEBHOOK_URL")
+
+          echo "HTTP status: $HTTP_CODE"
+          echo "Response body:"
+          cat response.txt || true
