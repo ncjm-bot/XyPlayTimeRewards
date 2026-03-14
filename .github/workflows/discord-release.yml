@@ -17,8 +17,13 @@ jobs:
           RELEASE_BODY: ${{ github.event.release.body }}
           RELEASE_URL: ${{ github.event.release.html_url }}
           REPO_NAME: ${{ github.event.repository.name }}
+          RELEASE_PUBLISHED_AT: ${{ github.event.release.published_at }}
         run: |
-          DESCRIPTION=$(printf "%s" "$RELEASE_BODY" | head -c 1000 | tr '\n' ' ' | sed 's/"/\\"/g')
+          SAFE_DESCRIPTION=$(printf "%s" "$RELEASE_BODY" | tr '\n' ' ' | sed 's/"/\\"/g' | cut -c1-900)
+
+          if [ -z "$SAFE_DESCRIPTION" ]; then
+            SAFE_DESCRIPTION="No changelog provided."
+          fi
 
           cat > payload.json <<EOF
           {
@@ -46,30 +51,22 @@ jobs:
                   },
                   {
                     "name": "Changelog",
-                    "value": "${DESCRIPTION}"
+                    "value": "${SAFE_DESCRIPTION}",
+                    "inline": false
                   }
                 ],
                 "footer": {
                   "text": "Xy Development • Minecraft Plugin Updates"
                 },
-                "timestamp": "${{ github.event.release.published_at }}"
+                "timestamp": "${RELEASE_PUBLISHED_AT}"
               }
             ]
           }
           EOF
 
-          echo "Payload:"
           cat payload.json
 
-          echo "Sending to Discord..."
-          curl -s -o response.txt -w "%{http_code}" \
-            -H "Content-Type: application/json" \
-            -X POST \
-            -d @payload.json \
-            "$DISCORD_WEBHOOK_URL" > status.txt
-
-          echo "HTTP Status:"
-          cat status.txt
-          echo
-          echo "Response Body:"
-          cat response.txt
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d @payload.json \
+               "$DISCORD_WEBHOOK_URL"
