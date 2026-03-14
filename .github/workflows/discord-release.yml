@@ -18,7 +18,7 @@ jobs:
           RELEASE_URL: ${{ github.event.release.html_url }}
           REPO_NAME: ${{ github.event.repository.name }}
         run: |
-          DESCRIPTION=$(printf "%s" "$RELEASE_BODY" | head -c 3000 | sed ':a;N;$!ba;s/\n/\\n/g')
+          DESCRIPTION=$(printf "%s" "$RELEASE_BODY" | head -c 1000 | tr '\n' ' ' | sed 's/"/\\"/g')
 
           cat > payload.json <<EOF
           {
@@ -28,7 +28,7 @@ jobs:
               {
                 "title": "${RELEASE_NAME}",
                 "url": "${RELEASE_URL}",
-                "description": "A new plugin update has been released for **${REPO_NAME}**."
+                "description": "A new plugin update has been released for **${REPO_NAME}**.",
                 "color": 16753920,
                 "thumbnail": {
                   "url": "https://i.imgur.com/oMMV6cO.png"
@@ -39,7 +39,6 @@ jobs:
                     "value": "**${REPO_NAME}**",
                     "inline": true
                   },
-                
                   {
                     "name": "Version",
                     "value": "**${RELEASE_TAG}**",
@@ -59,7 +58,18 @@ jobs:
           }
           EOF
 
-          curl -H "Content-Type: application/json" \
-               -X POST \
-               -d @payload.json \
-               "$DISCORD_WEBHOOK_URL"
+          echo "Payload:"
+          cat payload.json
+
+          echo "Sending to Discord..."
+          curl -s -o response.txt -w "%{http_code}" \
+            -H "Content-Type: application/json" \
+            -X POST \
+            -d @payload.json \
+            "$DISCORD_WEBHOOK_URL" > status.txt
+
+          echo "HTTP Status:"
+          cat status.txt
+          echo
+          echo "Response Body:"
+          cat response.txt
