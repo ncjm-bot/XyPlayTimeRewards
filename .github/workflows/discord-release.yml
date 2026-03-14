@@ -23,12 +23,16 @@ jobs:
           cat > payload.json <<EOF
           {
             "username": "Xy Updates",
+            "avatar_url": "https://i.imgur.com/oMMV6cO.png",
             "embeds": [
               {
                 "title": "${RELEASE_NAME}",
                 "url": "${RELEASE_URL}",
-                "description": "A new update is now live for **${REPO_NAME}**.",
-                "color": 5793266,
+                "description": "A new update is now available for **${REPO_NAME}**.",
+                "color": 16753920,
+                "thumbnail": {
+                  "url": "https://i.imgur.com/oMMV6cO.png"
+                },
                 "fields": [
                   {
                     "name": "Plugin",
