@@ -1,0 +1,21 @@
+name: XyPlayTimeRewards
+version: 2.0.0
+main: com.ixyber.xyplaytimerewards.XyPlayTimeRewardsPlugin
+api-version: '1.21'
+
+commands:
+  playtimerewards:
+    description: Opens the playtime rewards menu
+    usage: /playtimerewards
+    aliases: [ptr, rewards]
+
+  playtimerewardsadmin:
+    description: Admin commands for playtime rewards
+    usage: /playtimerewardsadmin
+    aliases: [ptradmin]
+    permission: xyplaytimerewards.admin
+
+permissions:
+  xyplaytimerewards.admin:
+    description: Access to playtime rewards admin commands
+    default: op

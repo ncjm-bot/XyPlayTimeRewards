@@ -1,0 +1,41 @@
+settings:
+  save-interval-seconds: 60
+  track-interval-seconds: 60
+  cash-command: "eco give %player% %amount%"
+  coins-command: "coins give %player% %amount%"
+
+theme:
+  main-title: "&#8FD3FF&lA&#84C8FD&lr&#79BDFB&li&#6EB2F9&la&#63A7F7&lM&#589CF5&lC &8✦ &e&lPlaytime Rewards"
+  leaderboard-title: "&#8FD3FF&lA&#84C8FD&lr&#79BDFB&li&#6EB2F9&la&#63A7F7&lM&#589CF5&lC &8✦ &d&lTop Playtime"
+
+daily:
+  cooldown-hours: 24
+  material: NETHER_STAR
+  display-name: "&6&lDaily Reward"
+  cash: 100000
+  coins: 35
+  reward-lore:
+    - "&7Claim this premium daily loyalty reward."
+    - "&a+100,000 Cash"
+    - "&e+35 Coins"
+  commands: []
+
+messages:
+  no-permission: "&cYou do not have permission."
+  players-only: "&cOnly players can use this command."
+  reward-claimed: "&8[&bPlaytime Rewards&8] &aYou claimed &f%reward%&a."
+  reward-already-claimed: "&8[&bPlaytime Rewards&8] &cYou already claimed this reward."
+  reward-locked: "&8[&bPlaytime Rewards&8] &cThat reward is still locked."
+  daily-claimed: "&8[&bPlaytime Rewards&8] &aYou claimed your &6daily reward&a."
+  daily-on-cooldown: "&8[&bPlaytime Rewards&8] &cYour daily reward is still on cooldown."
+  reload-success: "&aPlaytimeRewards reloaded."
+  settime-success: "&aSet %player%'s playtime to &e%minutes% &aminutes."
+  reset-success: "&aReset playtime reward data for &e%player%&a."
+
+alerts:
+  unlock-title: "&6&lReward Unlocked!"
+  unlock-subtitle: "&f%reward% &7is now ready to claim."
+  unlock-chat: "&8[&bPlaytime Rewards&8] &eNew reward unlocked: &f%reward%"
+  unlock-actionbar: "&6Reward Ready &8• &f/playtimerewards"
+  broadcast-unlock: "&8&m                                                    "
+  broadcast-claim: "&8&m                                                    "

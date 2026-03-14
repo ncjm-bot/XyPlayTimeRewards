@@ -1,0 +1,319 @@
+rewards:
+  "5m":
+    required-minutes: 5
+    material: GOLD_NUGGET
+    display-name: "&f✦ &e5 Minutes"
+    cash: 1000
+    coins: 0
+    reward-lore:
+      - "&a+1,000 Cash"
+    broadcast: false
+    commands: []
+
+  "10m":
+    required-minutes: 10
+    material: RAW_GOLD
+    display-name: "&f✦ &e10 Minutes"
+    cash: 2000
+    coins: 0
+    reward-lore:
+      - "&a+2,000 Cash"
+    broadcast: false
+    commands: []
+
+  "15m":
+    required-minutes: 15
+    material: HONEYCOMB
+    display-name: "&f✦ &e15 Minutes"
+    cash: 3000
+    coins: 0
+    reward-lore:
+      - "&a+3,000 Cash"
+    broadcast: false
+    commands: []
+
+  "20m":
+    required-minutes: 20
+    material: CLOCK
+    display-name: "&f✦ &e20 Minutes"
+    cash: 4000
+    coins: 0
+    reward-lore:
+      - "&a+4,000 Cash"
+    broadcast: false
+    commands: []
+
+  "30m":
+    required-minutes: 30
+    material: IRON_INGOT
+    display-name: "&f✦ &e30 Minutes"
+    cash: 5000
+    coins: 0
+    reward-lore:
+      - "&a+5,000 Cash"
+    broadcast: false
+    commands: []
+
+  "1h":
+    required-minutes: 60
+    material: EMERALD
+    display-name: "&f✦ &a1 Hour"
+    cash: 10000
+    coins: 5
+    reward-lore:
+      - "&a+10,000 Cash"
+      - "&e+5 Coins"
+    broadcast: false
+    commands: []
+
+  "2h":
+    required-minutes: 120
+    material: DIAMOND
+    display-name: "&f✦ &b2 Hours"
+    cash: 20000
+    coins: 30
+    reward-lore:
+      - "&a+20,000 Cash"
+      - "&e+30 Coins"
+    broadcast: false
+    commands: []
+
+  "3h":
+    required-minutes: 180
+    material: DIAMOND_BLOCK
+    display-name: "&f✦ &b3 Hours"
+    cash: 45000
+    coins: 50
+    reward-lore:
+      - "&a+45,000 Cash"
+      - "&e+50 Coins"
+    broadcast: false
+    commands: []
+
+  "5h":
+    required-minutes: 300
+    material: ENCHANTING_TABLE
+    display-name: "&f✦ &b5 Hours"
+    cash: 60000
+    coins: 80
+    reward-lore:
+      - "&a+60,000 Cash"
+      - "&e+80 Coins"
+    broadcast: false
+    commands: []
+
+  "8h":
+    required-minutes: 480
+    material: AMETHYST_CLUSTER
+    display-name: "&f✦ &d8 Hours"
+    cash: 100000
+    coins: 0
+    reward-lore:
+      - "&a+100,000 Cash"
+    broadcast: false
+    commands: []
+
+  "10h":
+    required-minutes: 600
+    material: BEACON
+    display-name: "&f✦ &d10 Hours"
+    cash: 150000
+    coins: 0
+    reward-lore:
+      - "&a+150,000 Cash"
+    broadcast: false
+    commands: []
+
+  "12h":
+    required-minutes: 720
+    material: NETHER_STAR
+    display-name: "&f✦ &512 Hours"
+    cash: 200000
+    coins: 0
+    reward-lore:
+      - "&a+200,000 Cash"
+    broadcast: false
+    commands: []
+
+  "1d":
+    required-minutes: 1440
+    material: TOTEM_OF_UNDYING
+    display-name: "&f✦ &61 Day"
+    cash: 250000
+    coins: 200
+    reward-lore:
+      - "&a+250,000 Cash"
+      - "&e+200 Coins"
+    broadcast: true
+    commands: []
+
+  "2d":
+    required-minutes: 2880
+    material: ENCHANTED_GOLDEN_APPLE
+    display-name: "&f✦ &62 Days"
+    cash: 350000
+    coins: 400
+    reward-lore:
+      - "&a+350,000 Cash"
+      - "&e+400 Coins"
+    broadcast: true
+    commands: []
+
+  "3d":
+    required-minutes: 4320
+    material: SHULKER_BOX
+    display-name: "&f✦ &d3 Days"
+    cash: 600000
+    coins: 0
+    reward-lore:
+      - "&a+600,000 Cash"
+    broadcast: true
+    commands: []
+
+  "5d":
+    required-minutes: 7200
+    material: ENDER_CHEST
+    display-name: "&f✦ &d5 Days"
+    cash: 0
+    coins: 500
+    reward-lore:
+      - "&e+500 Coins"
+      - "&d+1 Monthly Crate Key"
+    broadcast: true
+    commands:
+      - "cc give p AdvancedExample 1 %player%"
+
+  "7d":
+    required-minutes: 10080
+    material: DRAGON_HEAD
+    display-name: "&f✦ &57 Days"
+    cash: 750000
+    coins: 600
+    reward-lore:
+      - "&a+750,000 Cash"
+      - "&e+600 Coins"
+    broadcast: true
+    commands: []
+
+  "10d":
+    required-minutes: 14400
+    material: DRAGON_EGG
+    display-name: "&f✦ &510 Days"
+    cash: 1500000
+    coins: 0
+    reward-lore:
+      - "&a+1,500,000 Cash"
+    broadcast: true
+    commands: []
+
+  "15d":
+    required-minutes: 21600
+    material: NETHERITE_INGOT
+    display-name: "&f✦ &515 Days"
+    cash: 2000000
+    coins: 0
+    reward-lore:
+      - "&a+2,000,000 Cash"
+      - "&d+1 Monthly Crate Key"
+    broadcast: true
+    commands:
+      - "cc give p AdvancedExample 1 %player%"
+
+  "20d":
+    required-minutes: 28800
+    material: NETHERITE_BLOCK
+    display-name: "&f✦ &620 Days"
+    cash: 2500000
+    coins: 700
+    reward-lore:
+      - "&a+2,500,000 Cash"
+      - "&e+700 Coins"
+    broadcast: true
+    commands: []
+
+  "1month":
+    required-minutes: 43200
+    material: HEART_OF_THE_SEA
+    display-name: "&f✦ &61 Month"
+    cash: 5000000
+    coins: 1500
+    reward-lore:
+      - "&a+5,000,000 Cash"
+      - "&e+1,500 Coins"
+    broadcast: true
+    commands: []
+
+  "2month":
+    required-minutes: 86400
+    material: ELYTRA
+    display-name: "&f✦ &b2 Months"
+    cash: 6000000
+    coins: 2000
+    reward-lore:
+      - "&a+6,000,000 Cash"
+      - "&e+2,000 Coins"
+      - "&d+1 Monthly Crate Key"
+    broadcast: true
+    commands:
+      - "cc give p AdvancedExample 1 %player%"
+
+  "3month":
+    required-minutes: 129600
+    material: TRIDENT
+    display-name: "&f✦ &c3 Months"
+    cash: 8500000
+    coins: 0
+    reward-lore:
+      - "&a+8,500,000 Cash"
+      - "&d+1 Monthly Crate Key"
+    broadcast: true
+    commands:
+      - "cc give p AdvancedExample 1 %player%"
+
+  "4month":
+    required-minutes: 172800
+    material: MACE
+    display-name: "&f✦ &c4 Months"
+    cash: 10000000
+    coins: 2500
+    reward-lore:
+      - "&a+10,000,000 Cash"
+      - "&e+2,500 Coins"
+      - "&d+1 Monthly Crate Key"
+    broadcast: true
+    commands:
+      - "cc give p AdvancedExample 1 %player%"
+
+  "5month":
+    required-minutes: 216000
+    material: NETHERITE_UPGRADE_SMITHING_TEMPLATE
+    display-name: "&f✦ &45 Months"
+    cash: 15000000
+    coins: 3000
+    reward-lore:
+      - "&a+15,000,000 Cash"
+      - "&e+3,000 Coins"
+      - "&d+3 Monthly Crate Keys"
+      - "&b+2 Fishing Crate Keys"
+    broadcast: true
+    commands:
+      - "cc give p AdvancedExample 3 %player%"
+      - "cc give p FishingExample 2 %player%"
+
+  "6month":
+    required-minutes: 259200
+    material: RESPAWN_ANCHOR
+    display-name: "&f✦ &46 Months"
+    cash: 25000000
+    coins: 5000
+    reward-lore:
+      - "&a+25,000,000 Cash"
+      - "&e+5,000 Coins"
+      - "&d+5 Monthly Crate Keys"
+      - "&b+5 Fishing Crate Keys"
+      - "&5+5 Cosmetic Crate Keys"
+    broadcast: true
+    commands:
+      - "cc give p AdvancedExample 5 %player%"
+      - "cc give p FishingExample 5 %player%"
+      - "cc give p CosmeticExample 5 %player%"
